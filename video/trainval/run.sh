@@ -1,0 +1,12 @@
+sbatch download.sh ava_file_names_trainval_v2.1_0.txt
+sbatch download.sh ava_file_names_trainval_v2.1_1.txt
+sbatch download.sh ava_file_names_trainval_v2.1_2.txt
+sbatch download.sh ava_file_names_trainval_v2.1_3.txt
+sbatch download.sh ava_file_names_trainval_v2.1_4.txt
+sbatch download.sh ava_file_names_trainval_v2.1_5.txt
+sbatch download.sh ava_file_names_trainval_v2.1_6.txt
+sbatch download.sh ava_file_names_trainval_v2.1_7.txt
+sbatch download.sh ava_file_names_trainval_v2.1_8.txt
+sbatch download.sh ava_file_names_trainval_v2.1_9.txt
+sbatch download.sh ava_file_names_trainval_v2.1_10.txt
+sbatch download.sh ava_file_names_trainval_v2.1_11.txt
