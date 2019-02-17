@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#SBATCH --job-name=download_kinetics
+#SBATCH --job-name=download_ava
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --nodes=1

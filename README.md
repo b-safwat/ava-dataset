@@ -1,43 +1,25 @@
-# ava-dataset-tool
+# AVA Actions Dataset
+The AVA dataset densely annotates 80 atomic visual actions in 430 movie clips with actions localized in space and time, resulting in 1.58M action labels with multiple labels per human occurring frequently. Clips are drawn from 15-minute contiguous segments of movies, to open the door for temporal reasoning about activities. The dataset is split into 235 videos for training, 64 videos for validation, and 131 videos for test, with the test set to be released in the near future. This page aims to provide the download instructions and mirror sites for AVA Dataset. Please visit the [project page](https://research.google.com/ava/) for more details on the dataset.
+## Download Videos
+CVDF hosts the videos in the AVA dataset. Please download the videos with the url patterns:
+```
+https://s3.amazonaws.com/ava-dataset/trainval/[file_name]
+https://s3.amazonaws.com/ava-dataset/test/[file_name]
+```
+You can download the list of training/validation file names [here](https://s3.amazonaws.com/ava-dataset/annotations/ava_file_names_trainval_v2.1.txt), and the test filenames [here](https://s3.amazonaws.com/ava-dataset/annotations/ava_file_names_test_v2.1.txt).
 
-## AVA Dataset
-The [AVA Dataset](https://research.google.com/ava/) is a newly exciting dataset for action detection and localization.
+## Download Annotations
+The public annotations, for the training and validation sets, can be downloaded here [ava_v2.1.zip](https://s3.amazonaws.com/ava-dataset/annotations/ava_v2.1.zip).
 
-I will put a few tools here that may be useful for future development. 
+# AVA Speech Dataset
+The AVA-Speech dataset densely annotates speech activity for the movie clips in the AVA v1.0 dataset. It explicitly labels 3 background noise conditions (Clean Speech, Speech with background Music, and Speech with background Noise), resulting in ~40K labeled segments spanning 40 hours of data. Please visit the [project page](https://research.google.com/ava/) for more details on the dataset.
 
-## Prerequisites
-1. FFMPEG
-2. OpenCV
+## Download Videos
+CVDF hosts the videos in AVA Speech. Please download the videos with the url patterns:
+```
+https://s3.amazonaws.com/ava-dataset/trainval/[file_name]
+```
+You can download the list of file names [here](https://s3.amazonaws.com/ava-dataset/annotations/ava_speech_file_names_v1.txt).
 
-## Download
-Following [CVDF's latest instruction](https://github.com/cvdfoundation/ava-dataset), we are able to download the `AVA v2.1` train/val videos with their urls.
-
-    $ cd ava-dataset-tool/video/trainval
-    $ ./download.sh
-
-Download the test videos with their urls.
-
-    $ cd ava-dataset-tool/video/test
-    $ ./download.sh
-
-## Download annotations
-The trainval annotations can be downloaded by
-
-    $ cd ava-dataset-tool
-    $ wget https://s3.amazonaws.com/ava-dataset/annotations/ava_v2.1.zip
-    $ unzip ava_v2.1.zip
-
-## Training data visualization
-Data preprocessing is important for network training. Previously I tried OpenCV, but it is challenging to extract the exact keyframe maybe due to different codec settings. Currently we extract the video clips and the keyframes using ffmpeg. We visualize the bboxes for each keyframe in a new folder `preproc`. Note that this script extracts keyframes, bboxes, and the 3-second video clips from training set. 
-
-    $ cd ava-dataset-tool
-    $ python3 extract_keyframe.py
-
-If you would like to extract video clips and keyframes from the validation set or test set, you may need slightly adjust the corresponding path in `extract_keyframe.py`.
-
-<p align="center">
-<img src="https://github.com/kevinlin311tw/ava-dataset-tool/blob/master/sample_bbox.jpg", width="400">
-</p>
-
-Stay tuned..
-
+## Download Annotations
+The public annotations for AVA speech can be downloaded here [ava_speech_labels_v1.csv](https://s3.amazonaws.com/ava-dataset/annotations/ava_speech_labels_v1.csv).
