@@ -17,6 +17,8 @@ parser.add_argument("--actionlist_file",
                     default="ava_action_list_v2.0.csv",
                     help="Action list file path.")
 parser.add_argument("--output_dir", default="./preproc/train", help="Output path.")
+parser.add_argument("--starting_annot_indx", default="0", help="Output path.")
+parser.add_argument("--ending_annot_indx", default="-1", help="Output path.")
 
 FLAGS = parser.parse_args()
 
@@ -32,6 +34,8 @@ outdir_bboxs = os.path.join(outdir, "bboxs")
 clip_length = 3 # seconds
 clip_time_padding = 1.0 # seconds
 
+starting_annot_indx = FLAGS.starting_annot_indx
+ending_annot_indx = FLAGS.ending_annot_indx
 
 def load_action_name(annotations):
     csvfile = open(annotations,'r')
@@ -42,9 +46,10 @@ def load_action_name(annotations):
         dic[i+1] = temp
     return dic
 
-def load_labels(annotations):
+def load_labels(annotations, s=0, e=-1):
     csvfile = open(annotations,'r')
     reader = list(csv.reader(csvfile))
+    reader = reader[s:e]
     dic = {}
     for i in range(len(reader)):
 
@@ -143,7 +148,7 @@ def get_clips(videofile, video_id, video_extension, time_id):
 
 if __name__ == '__main__':
     # load data and labels from cvs files
-    anno_data, table = load_labels(annotfile)
+    anno_data, table = load_labels(annotfile, starting_annot_indx, ending_annot_indx)
     action_name = load_action_name(actionlistfile) 
 
     # iterate each frame in a video
@@ -176,7 +181,7 @@ if __name__ == '__main__':
         fname = get_keyframe(videofile, video_id, time_id, outdir_keyframes)
 
         # Bbox visualization
-        visual_bbox(anno_data, action_name, fname, video_id, time_id, bbox_ids)
+        # visual_bbox(anno_data, action_name, fname, video_id, time_id, bbox_ids)
 
         # Extract clips via ffmpeg
         get_clips(videofile, video_id, video_extension, time_id)

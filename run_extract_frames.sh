@@ -7,4 +7,4 @@
 #SBATCH --ntasks=1
 #SBATCH --time=20:15:00
 
-python extract_keyframe.py --video_dir video/trainval/vids
+python extract_keyframe.py --video_dir=video/trainval/vids --starting_annot_indx=$1 --ending_annot_indx=$2 --annot_file=$3
