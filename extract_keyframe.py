@@ -148,6 +148,9 @@ def get_clips(videofile, video_id, video_extension, time_id):
 
 if __name__ == '__main__':
     # load data and labels from cvs files
+    starting_annot_indx = int(starting_annot_indx)
+    ending_annot_indx = int(ending_annot_indx)
+
     anno_data, table = load_labels(annotfile, starting_annot_indx, ending_annot_indx)
     action_name = load_action_name(actionlistfile) 
 
