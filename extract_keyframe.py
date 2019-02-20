@@ -37,6 +37,10 @@ clip_time_padding = 1.0 # seconds
 starting_annot_indx = FLAGS.starting_annot_indx
 ending_annot_indx = FLAGS.ending_annot_indx
 
+# Bassel : desired classes:
+desired_classes_4_oa18 = [5, 6, 8, 11, 12, 14, 15, 22, 27, 29, 30, 38, 57, 62, 63, 74, 79]
+
+
 def load_action_name(annotations):
     csvfile = open(annotations,'r')
     reader = list(csv.reader(csvfile))
@@ -51,7 +55,10 @@ def load_labels(annotations, s=0, e=-1):
     reader = list(csv.reader(csvfile))
     reader = reader[s:e]
     dic = {}
+
     for i in range(len(reader)):
+        if int(reader[i][-2]) not in desired_classes_4_oa18:
+            continue
 
         if (reader[i][0],reader[i][1]) in dic:
             dic[(reader[i][0],reader[i][1])].append(i)
@@ -147,9 +154,6 @@ def get_clips(videofile, video_id, video_extension, time_id):
     subprocess.call(ffmpeg_command, shell=True)
 
 if __name__ == '__main__':
-    # Bassel : desired classes:
-    desired_classes_4_oa18 = [5,6,8,11,12,14,15,22,27,29,30,38,57,62,63,74,79]
-
     # load data and labels from cvs files
     starting_annot_indx = int(starting_annot_indx)
     ending_annot_indx = int(ending_annot_indx)
@@ -190,12 +194,4 @@ if __name__ == '__main__':
         # visual_bbox(anno_data, action_name, fname, video_id, time_id, bbox_ids)
 
         # Extract clips via ffmpeg
-        desired=False
-
-        for i in bbox_ids:
-            if int(anno_data[i][-2]) in desired_classes_4_oa18:
-                desired = True
-                break
-
-        if desired:
-            get_clips(videofile, video_id, video_extension, time_id)
+        get_clips(videofile, video_id, video_extension, time_id)
